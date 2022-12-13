@@ -11,6 +11,7 @@ def common_prefix(str1, str2):
 
 def longest_common_prefix_v1(str_list):
     """Longest common prefix found by overwriting a var"""
+    
     longest_common_prefix = ''
 
     while len(str_list) > 0:
@@ -30,3 +31,21 @@ def longest_common_prefix_v1(str_list):
 
 str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
 print(longest_common_prefix_v1(str_list))
+
+
+def get_duplicates(input_list):
+    uniq_list = []
+    duplicates_list = []
+
+    for i in input_list:
+        if i in uniq_list:
+            duplicates_list.append(i)
+        else:
+            uniq_list.append(i)
+    
+    return duplicates_list
+
+# def longest_common_prefix_v2(str_list):
+#     """Just trying to get creative here tbh"""
+
+#     common_prefixes = []
