@@ -1,3 +1,5 @@
+import time
+
 def common_prefix(str1, str2):
     common_prefix_letters = []
     shortest_word, other_word = (str1, str2) if len(str1) < len(str2) else (str2, str1)
@@ -28,8 +30,8 @@ def longest_common_prefix_v1(str_list):
 
     return longest_common_prefix if longest_common_prefix else 'No duplicates found'
 
-str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
-print(longest_common_prefix_v1(str_list))
+# str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
+# print(longest_common_prefix_v1(str_list))
 
 
 ########################################## SOLUTION 2 ##########################################
@@ -77,5 +79,22 @@ def longest_common_prefix_v2(str_list):
 
     return 'No duplicates found'
         
+# str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
+# print(longest_common_prefix_v2(str_list))
+
+
 str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
-print(longest_common_prefix_v2(str_list))
+print(f'The test list is {str_list}.')
+
+start_time = time.time()
+v1_result = longest_common_prefix_v1(str_list)
+end_time = time.time()
+print(f'"Overwrite a var" version came up with the answer {v1_result}.')
+print(f'It took {end_time - start_time} seconds.')
+
+str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
+start_time = time.time()
+v2_result = longest_common_prefix_v2(str_list)
+end_time = time.time()
+print(f'"Cut away last char" version came up with the answer {v2_result}.')
+print(f'It took {end_time - start_time} seconds.')
