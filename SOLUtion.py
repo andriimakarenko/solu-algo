@@ -26,7 +26,7 @@ def longest_common_prefix_v1(str_list):
         if len(longest_common_prefix_with_current_word) > len(longest_common_prefix):
             longest_common_prefix = longest_common_prefix_with_current_word
 
-    return longest_common_prefix
+    return longest_common_prefix if longest_common_prefix else 'No duplicates found'
 
 str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
 print(longest_common_prefix_v1(str_list))
@@ -48,45 +48,34 @@ def get_duplicates(input_list):
     return duplicates_list
 
 def longest_common_prefix_v2(str_list):
-    """Just trying to get creative here tbh"""
+    """
+    Cut away the last character only from the longest strings,
+    then check for duplicates.
+    Example:
+    Iteration 1: ['abc', 'abcd', 'abcdef', 'hello']
+    Iteration 2: ['abc', 'abcd', 'abcde', 'hello']
+    Iteration 3: ['abc', 'abcd', 'abcd', 'hell']
+    In iteration 3, 'abcd' is found
+    """
 
-    # If there already are duplicates, the longest of them is what we're looking for.
-    # Also this scheme ensures there will never be a case like this: ['']
-    # which would break the solution of max(common_prefixes, key=len) 
-    common_prefixes = get_duplicates(str_list)
-    
-    # Cut away the last character only from the longest strings,
-    # then check for duplicates.
-    # Example:
-    # Iteration 1: ['abc', 'abcd', 'abcdef', 'hello']
-    # Iteration 2: ['abc', 'abcd', 'abcde', 'hello']
-    # Iteration 3: ['abc', 'abcd', 'abcd', 'hell']
-    # In iteration 3, 'abcd' is found
-    comparison = [] # Save resources, compare the longest string only
-    buffer = []
-    while len(buffer_list) > 0:
-        longest_str_len = len(max(str_list, key=len))
+    comparison = [] # Save resources, compare the longest strings only
+    while len(str_list) > 0:
         for i, string in enumerate(str_list):
+            longest_str_len = len(max(str_list, key=len))
             match len(string):
                 case _ as length if length == longest_str_len:
-                    print('lol')
+                    comparison.append(string)
+                    str_list[i] = str_list[i][:-1]
                 case _ as length if length == 0:
-                    print('kek')
+                    str_list.pop(i)
                 case _:
-                    print('Jack The Sparrow? No, Captain Jack The Sparrow!')
-            if len(string) > 0:
-                buffer_list.append(string[:-1])
-            else:
-                str_list.pop(i)
+                    pass
 
-        discovered_prefixes = get_duplicates(buffer_list)
-        if len(discovered_prefixes) > 0:
-            return max(discovered_prefixes, key=len)
-        
-        str_list = buffer_list
-        buffer_list = []
+        common_prefixes = get_duplicates(comparison)
+        if len(common_prefixes) > 0:
+            return max(common_prefixes, key=len)
 
-    return max(common_prefixes, key=len)
+    return 'No duplicates found'
         
 str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
 print(longest_common_prefix_v2(str_list))
