@@ -45,7 +45,12 @@ def get_duplicates(input_list):
     
     return duplicates_list
 
-# def longest_common_prefix_v2(str_list):
-#     """Just trying to get creative here tbh"""
+def longest_common_prefix_v2(str_list):
+    """Just trying to get creative here tbh"""
 
-#     common_prefixes = []
+    # If there already are duplicates, the longest of them is what we're looking for
+    common_prefixes = get_duplicates(str_list)
+    if len(common_prefixes) > 0:
+        return max(common_prefixes, key=len)
+    
+    pass
