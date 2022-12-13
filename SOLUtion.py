@@ -32,6 +32,9 @@ str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
 print(longest_common_prefix_v1(str_list))
 
 
+########################################## SOLUTION 2 ##########################################
+
+
 def get_duplicates(input_list):
     uniq_list = []
     duplicates_list = []
@@ -51,14 +54,26 @@ def longest_common_prefix_v2(str_list):
     # Also this scheme ensures there will never be a case like this: ['']
     # which would break the solution of max(common_prefixes, key=len) 
     common_prefixes = get_duplicates(str_list)
-    if len(common_prefixes) > 0:
-        return max(common_prefixes, key=len)
     
-    # Cut away last character from each string in each iteration,
-    # check for duplicates among string[:-1] entities
-    buffer_list = []
+    # Cut away the last character only from the longest strings,
+    # then check for duplicates.
+    # Example:
+    # Iteration 1: ['abc', 'abcd', 'abcdef', 'hello']
+    # Iteration 2: ['abc', 'abcd', 'abcde', 'hello']
+    # Iteration 3: ['abc', 'abcd', 'abcd', 'hell']
+    # In iteration 3, 'abcd' is found
+    comparison = [] # Save resources, compare the longest string only
+    buffer = []
     while len(buffer_list) > 0:
+        longest_str_len = len(max(str_list, key=len))
         for i, string in enumerate(str_list):
+            match len(string):
+                case _ as length if length == longest_str_len:
+                    print('lol')
+                case _ as length if length == 0:
+                    print('kek')
+                case _:
+                    print('Jack The Sparrow? No, Captain Jack The Sparrow!')
             if len(string) > 0:
                 buffer_list.append(string[:-1])
             else:
@@ -71,7 +86,7 @@ def longest_common_prefix_v2(str_list):
         str_list = buffer_list
         buffer_list = []
 
-    return 'Duplicates not found'
+    return max(common_prefixes, key=len)
         
 str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
 print(longest_common_prefix_v2(str_list))
