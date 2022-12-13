@@ -54,6 +54,8 @@ def longest_common_prefix_v2(str_list):
     if len(common_prefixes) > 0:
         return max(common_prefixes, key=len)
     
+    # Cut away last character from each string in each iteration,
+    # check for duplicates among string[:-1] entities
     buffer_list = []
     while len(buffer_list) > 0:
         for i, string in enumerate(str_list):
@@ -71,4 +73,5 @@ def longest_common_prefix_v2(str_list):
 
     return 'Duplicates not found'
         
-    pass
+str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
+print(longest_common_prefix_v2(str_list))
