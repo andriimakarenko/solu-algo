@@ -26,7 +26,6 @@ def longest_common_prefix_v1(str_list):
         if len(longest_common_prefix_with_current_word) > len(longest_common_prefix):
             longest_common_prefix = longest_common_prefix_with_current_word
 
-    
     return longest_common_prefix
 
 str_list = ['asd', 'asdf', 'asdfg', '', 'asdfgk' 'ase', '']
@@ -55,4 +54,21 @@ def longest_common_prefix_v2(str_list):
     if len(common_prefixes) > 0:
         return max(common_prefixes, key=len)
     
+    buffer_list = []
+    while len(buffer_list) > 0:
+        for i, string in enumerate(str_list):
+            if len(string) > 0:
+                buffer_list.append(string[:-1])
+            else:
+                str_list.pop(i)
+
+        discovered_prefixes = get_duplicates(buffer_list)
+        if len(discovered_prefixes) > 0:
+            return max(discovered_prefixes, key=len)
+        
+        str_list = buffer_list
+        buffer_list = []
+
+    return 'Duplicates not found'
+        
     pass
